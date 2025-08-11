@@ -1,0 +1,226 @@
+/* ===== General Styles ===== */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #004d4d;
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    color: #008080;
+    margin-bottom: 0.5em;
+}
+
+a {
+    color: #ff7f50;
+    text-decoration: none;
+    position: relative;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+/* ===== Orange Underline on Nav Hover ===== */
+nav a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    display: block;
+    margin-top: 2px;
+    right: 0;
+    background: #ff7f50;
+    transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+    width: 100%;
+    left: 0;
+    background: #ff7f50;
+}
+
+/* ===== Header ===== */
+header {
+    background-color: #008080;
+    color: white;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 1rem;
+}
+
+nav a {
+    color: white;
+    font-weight: bold;
+}
+
+
+
+/* ===== Logo Placeholder ===== */
+.logo {
+    width: 50px;
+    height: 50px;
+    background-color: #ff7f50;
+    border-radius: 5px;
+}
+
+/* ===== Hero Section ===== */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+}
+
+.hero-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    padding: 1.5rem 2rem;
+}
+
+.hero-overlay h2 {
+    font-size: 3rem;
+    color: white;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    letter-spacing: 3px;
+    font-weight: bold;
+}
+
+/* ===== Fade-in animation for hero words ===== */
+.fade-word {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+}
+
+.fade-word:nth-child(1) { animation-delay: 0.5s; }
+.fade-word:nth-child(2) { animation-delay: 1.5s; }
+.fade-word:nth-child(3) { animation-delay: 2.5s; }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== Sections ===== */
+section {
+    padding: 2rem;
+    max-width: 900px;
+    margin: auto;
+    border-radius: 25px;
+}
+
+section:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* ===== Section Images ===== */
+.section-img {
+    float: left;
+    width: 120px;
+    height: 120px;
+    margin: 0 1rem 1rem 0;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* ===== Buttons ===== */
+button {
+    background-color: #008080;
+    color: white;
+    padding: 0.7rem 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #ff7f50;
+}
+
+/* ===== Forms ===== */
+input, textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* ===== Footer ===== */
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #004d4d;
+    color: white;
+}
+
+/* ===== Responsive Layout ===== */
+@media (max-width: 850px) {
+    .menu-btn {
+        display: block;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    nav {
+        display: none;
+        width: 100%;
+    }
+
+    nav.open {
+        display: block;
+    }
+
+    .section-img {
+        float: none;
+        display: block;
+        margin: 0 auto 1rem auto;
+    }
+
+    section {
+        text-align: center;
+    }
+
+    .hero-overlay h2 {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+}
