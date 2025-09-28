@@ -1,0 +1,54 @@
+name: Site Health
+
+on:
+  push:
+    branches: [ main, master ]
+  schedule:
+    - cron: "0 */6 * * *"   # Every 6 hours
+  workflow_dispatch: {}
+
+jobs:
+  redirects-and-https:
+    name: Check redirects & HTTPS
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      ROOT_HTTP:  http://championgroupvip.com
+      WWW_HTTP:   http://www.championgroupvip.com
+      WWW_HTTPS:  https://www.championgroupvip.com
+      EXPECT_FINAL: https://www.championgroupvip.com/
+    steps:
+      - name: Check root (HTTP) redirects to HTTPS www
+        run: |
+          set -euo pipefail
+          final=$(curl -sIL "$ROOT_HTTP" -o /dev/null -w '%{url_effective}' -L)
+          code=$(curl -sI  "$ROOT_HTTP" -o /dev/null -w '%{http_code}')
+          echo "Final URL: $final"
+          echo "First response code: $code"
+          # Assert we ultimately land on HTTPS www
+          [[ "$final" == "$EXPECT_FINAL" ]] || (echo "Expected final $EXPECT_FINAL but got $final" && exit 1)
+
+      - name: Check www (HTTP) redirects to HTTPS www
+        run: |
+          set -euo pipefail
+          final=$(curl -sIL "$WWW_HTTP" -o /dev/null -w '%{url_effective}' -L)
+          echo "Final URL: $final"
+          [[ "$final" == "$EXPECT_FINAL" ]] || (echo "Expected final $EXPECT_FINAL but got $final" && exit 1)
+
+      - name: Check HTTPS www returns 200
+        run: |
+          set -euo pipefail
+          code=$(curl -sI "$WWW_HTTPS" -o /dev/null -w '%{http_code}')
+          echo "Status: $code"
+          [[ "$code" == "200" ]] || (echo "Expected 200 but got $code" && exit 1)
+
+      - name: Optional - confirm CNAME file (informational)
+        run: |
+          # This does not gate the build; it only prints info.
+          # Your repo should contain a CNAME file with: www.championgroupvip.com
+          if [ -f CNAME ]; then
+            echo "CNAME file found:"
+            cat CNAME || true
+          else
+            echo "No CNAME file in repo (GitHub may manage it automatically via settings)."
+          fi
