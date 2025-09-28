@@ -1,5 +1,5 @@
 // app.js
-// EmailJS-powered Contact Form with Live Phone Formatting
+// EmailJS-powered Contact Form with Live Phone Formatting (phone optional)
 
 const EMAILJS_PUBLIC_KEY = "IgXpJ4MUd7u0XJxNy";    
 const EMAILJS_SERVICE_ID = "service_tpyr2z9";     
@@ -24,8 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // FORMAT PHONE HELPER
   // ----------------------------
   function formatPhone(value) {
-    // Remove all non-digits
-    value = value.replace(/\D/g, "");
+    value = value.replace(/\D/g, ""); // keep only digits
     if (value.length > 10) value = value.slice(0, 10); // cap at 10 digits
 
     let formatted = value;
@@ -43,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // LIVE FORMATTING ON INPUT/PASTE
   // ----------------------------
   phoneEl.addEventListener("input", () => {
+    if (phoneEl.value.trim() === "") return; // skip if empty
     phoneEl.value = formatPhone(phoneEl.value);
   });
 
@@ -65,18 +65,16 @@ document.addEventListener("DOMContentLoaded", () => {
     evt.preventDefault();
 
     if (!isNonEmpty(nameEl.value)) { alert("Please enter your name."); nameEl.focus(); return; }
-    if (!isNonEmpty(phoneEl.value)) { alert("Please enter your phone number."); phoneEl.focus(); return; }
     if (!isValidEmail(emailEl.value)) { alert("Please enter a valid email."); emailEl.focus(); return; }
     if (!isNonEmpty(messageEl.value)) { alert("Please enter a message."); messageEl.focus(); return; }
 
     const templateParams = {
       name: nameEl.value.trim(),
-      phone: phoneEl.value.trim(),   // already formatted (xxx)xxx-xxxx
+      phone: phoneEl.value.trim(),   // may be empty
       email: emailEl.value.trim(),
       message: messageEl.value.trim(),
     };
 
-    // UI feedback during send
     const originalText = submitBtn.textContent;
     submitBtn.disabled = true;
     submitBtn.textContent = "Sending...";
