@@ -1,226 +1,129 @@
-/* ===== General Styles ===== */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #ffffff;
-    color: #004d4d;
-    line-height: 1.6;
+:root{
+  --teal:#008080;
+  --teal-dark:#004d4d;
+  --coral:#ff7f50;
+  --ink:#0f172a;
+  --bg:#ffffff;
+  --muted:#f6f8fa;
+  --radius:16px;
+  --shadow:0 10px 25px rgba(0,0,0,.08);
 }
 
-h1, h2, h3 {
-    color: #008080;
-    margin-bottom: 0.5em;
+*{ box-sizing: border-box; }
+html,body{ margin:0; padding:0; }
+body{
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--teal-dark);
+  line-height: 1.6;
+}
+h1,h2,h3{ font-family: Outfit, Inter, sans-serif; color: var(--teal); margin-bottom:.5em; }
+a{ color: var(--coral); text-decoration: none; position: relative; }
+a:hover{ text-decoration: none; }
+
+nav a::after{
+  content:""; position:absolute; width:0; height:2px; display:block; margin-top:2px; right:0;
+  background: var(--coral); transition: width .3s ease;
+}
+nav a:hover::after{ width:100%; left:0; }
+
+header{
+  background: var(--teal);
+  color:#fff;
+  padding: 1rem;
+  display:flex; align-items:center; gap:1rem; flex-wrap:wrap; justify-content:flex-start;
+  position: sticky; top: 0; z-index: 1000;
+  transition: box-shadow .25s ease, background-color .25s ease;
+}
+header.is-scrolled{ box-shadow: var(--shadow); background-color: rgba(0,128,128,.98); }
+header h1{ margin:0; }
+
+.logo{ width:50px; height:50px; background-color: var(--coral); border-radius: 10px; }
+nav ul{ list-style:none; padding:0; margin:0; display:flex; gap:1rem; }
+nav a{ color:#fff; font-weight:700; }
+
+.menu-btn{
+  display:none; background: var(--coral); color:#fff; border:0;
+  padding:.5rem .8rem; border-radius:10px; font-weight:700; box-shadow: var(--shadow);
 }
 
-a {
-    color: #ff7f50;
-    text-decoration: none;
-    position: relative;
+.hero{
+  position: relative; width:100%; height:350px;
+  background-size: cover; background-position: center;
+  display:flex; align-items:center; overflow:hidden;
+}
+.hero::before{
+  content:""; position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.2) 40%, rgba(0,0,0,.45));
+  pointer-events:none;
+}
+.hero-overlay{ width:100%; padding:1.5rem 2rem; }
+.hero-overlay h2{
+  font-size: clamp(2rem, 4vw, 3rem);
+  color:#fff; margin:0; display:flex; justify-content:space-between; letter-spacing:3px; font-weight:700;
+  text-shadow: 0 6px 24px rgba(0,0,0,.35);
 }
 
-a:hover {
-    text-decoration: none;
+.fade-word{ opacity:0; animation: fadeIn 1s ease forwards; }
+.fade-word:nth-child(1){ animation-delay:.5s; }
+.fade-word:nth-child(2){ animation-delay:1.5s; }
+.fade-word:nth-child(3){ animation-delay:2.5s; }
+@keyframes fadeIn{ from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:none;} }
+
+section{
+  padding: 2rem; max-width: 900px; margin: auto;
+  border-radius: var(--radius);
+}
+section:nth-of-type(odd){ background: var(--bg); }
+section:nth-of-type(even){ background: var(--muted); }
+
+.reveal{ opacity:0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.is-visible{ opacity:1; transform:none; }
+
+.section-img{
+  float:left; width:140px; height:140px; margin:0 1rem 1rem 0; object-fit: cover;
+  border-radius: 30% / 40%; box-shadow: var(--shadow);
 }
 
-/* ===== Orange Underline on Nav Hover ===== */
-nav a::after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 2px;
-    display: block;
-    margin-top: 2px;
-    right: 0;
-    background: #ff7f50;
-    transition: width 0.3s ease;
+button{
+  background: var(--teal); color:#fff; padding:.7rem 1.2rem;
+  border:none; border-radius:999px; cursor:pointer; font-weight:700;
+  box-shadow: var(--shadow); position:relative; overflow:hidden;
+  transition: transform .12s ease, background-color .2s ease;
 }
-
-nav a:hover::after {
-    width: 100%;
-    left: 0;
-    background: #ff7f50;
+button:hover{ background: var(--coral); }
+button:active{ transform: translateY(1px); }
+button::after{
+  content:""; position:absolute; inset:0;
+  background: radial-gradient(circle at var(--x,50%) var(--y,50%), rgba(255,255,255,.25), transparent 40%);
+  opacity:0; transition: opacity .25s ease;
 }
+button:hover::after{ opacity:1; }
 
-/* ===== Header ===== */
-header {
-    background-color: #008080;
-    color: white;
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+.microcopy{ font-size:.9rem; color:#475569; margin-top:.5rem; }
+
+input, textarea{
+  width: 100%; padding: .6rem .7rem; margin-top:.3rem; margin-bottom:1rem;
+  border:1px solid #cbd5e1; border-radius:10px; background:#fff;
 }
+textarea{ resize: vertical; }
 
-header h1 {
-    margin: 0;
+footer{ text-align:center; padding:1rem; background: var(--teal-dark); color:#fff; }
+
+.toast{
+  position: fixed; right:20px; bottom:20px; z-index:1100;
+  background:#0ea5a5; color:#fff; padding:.8rem 1rem; border-radius:12px;
+  box-shadow: var(--shadow); opacity:0; transform: translateY(8px);
+  animation: toast-in .25s forwards;
 }
+@keyframes toast-in{ to{ opacity:1; transform:none; } }
 
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    gap: 1rem;
-}
-
-nav a {
-    color: white;
-    font-weight: bold;
-}
-
-
-
-/* ===== Logo Placeholder ===== */
-.logo {
-    width: 50px;
-    height: 50px;
-    background-color: #ff7f50;
-    border-radius: 5px;
-}
-
-/* ===== Hero Section ===== */
-.hero {
-    position: relative;
-    width: 100%;
-    height: 350px;
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-}
-
-.hero-overlay {
-    background-color: rgba(0, 0, 0, 0.5);
-    width: 100%;
-    padding: 1.5rem 2rem;
-}
-
-.hero-overlay h2 {
-    font-size: 3rem;
-    color: white;
-    margin: 0;
-    display: flex;
-    justify-content: space-between;
-    letter-spacing: 3px;
-    font-weight: bold;
-}
-
-/* ===== Fade-in animation for hero words ===== */
-.fade-word {
-    opacity: 0;
-    animation: fadeIn 1s ease forwards;
-}
-
-.fade-word:nth-child(1) { animation-delay: 0.5s; }
-.fade-word:nth-child(2) { animation-delay: 1.5s; }
-.fade-word:nth-child(3) { animation-delay: 2.5s; }
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* ===== Sections ===== */
-section {
-    padding: 2rem;
-    max-width: 900px;
-    margin: auto;
-    border-radius: 25px;
-}
-
-section:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-/* ===== Section Images ===== */
-.section-img {
-    float: left;
-    width: 120px;
-    height: 120px;
-    margin: 0 1rem 1rem 0;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-/* ===== Buttons ===== */
-button {
-    background-color: #008080;
-    color: white;
-    padding: 0.7rem 1.2rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-button:hover {
-    background-color: #ff7f50;
-}
-
-/* ===== Forms ===== */
-input, textarea {
-    width: 100%;
-    padding: 0.5rem;
-    margin-top: 0.3rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-textarea {
-    resize: vertical;
-}
-
-/* ===== Footer ===== */
-footer {
-    text-align: center;
-    padding: 1rem;
-    background-color: #004d4d;
-    color: white;
-}
-
-/* ===== Responsive Layout ===== */
-@media (max-width: 850px) {
-    .menu-btn {
-        display: block;
-    }
-
-    nav ul {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    nav {
-        display: none;
-        width: 100%;
-    }
-
-    nav.open {
-        display: block;
-    }
-
-    .section-img {
-        float: none;
-        display: block;
-        margin: 0 auto 1rem auto;
-    }
-
-    section {
-        text-align: center;
-    }
-
-    .hero-overlay h2 {
-        flex-direction: column;
-        align-items: center;
-        gap: 0.5rem;
-    }
+@media (max-width: 850px){
+  .menu-btn{ display:block; }
+  nav ul{ flex-direction:column; gap:.5rem; }
+  nav{ display:none; width:100%; }
+  nav.open{ display:block; }
+  .section-img{ float:none; display:block; margin:0 auto 1rem auto; }
+  section{ text-align:center; }
+  .hero-overlay h2{ flex-direction:column; align-items:center; gap:.5rem; }
 }

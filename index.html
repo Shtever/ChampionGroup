@@ -1,16 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Champion Group VIP</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Inter:wght@400;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <header>
-        <div class="logo"></div>
+        <div class="logo" aria-hidden="true"></div>
         <h1>Champion Group VIP</h1>
-        <nav>
+
+        <button class="menu-btn" aria-controls="site-nav" aria-expanded="false" aria-label="Toggle menu">☰</button>
+
+        <nav id="site-nav">
             <ul>
                 <li><a href="#home">Home</a></li>
                 <li><a href="#training">Training</a></li>
@@ -31,13 +42,15 @@
         </div>
     </div>
 
-    <section id="home">
+    <section id="home" class="reveal">
         <img src="assets/target.webp" alt="A paper target" class="section-img">
-        <h2>Welcome to Champion Group VIP FIREARMS TRAINING</h2>
-        <p>At Champion Group VIP, we are committed to excellence in firearms training and personal defense. Serving the <strong>San Antonio - Austin</strong> areas, we provide top-tier instruction for individuals seeking to improve their safety and shooting skills.</p>
+        <h2>Welcome to Champion Group VIP</h2>
+        <p>At Champion Group VIP, we are committed to excellence in firearms training and personal defense. Serving the
+            <strong>San Antonio - Austin</strong> areas, we provide top-tier instruction for individuals seeking to
+            improve their safety and shooting skills.</p>
     </section>
 
-    <section id="training">
+    <section id="training" class="reveal">
         <img src="assets/target.webp" alt="A paper target" class="section-img">
         <h2>Training Programs</h2>
         <ul>
@@ -45,16 +58,18 @@
             <li>NRA Certified Rifle Instructor <em>(Coming Soon)</em></li>
             <li>NRA Certified Shotgun Instructor <em>(Coming Soon)</em></li>
         </ul>
-        <p>Champion Group VIP offers a range of training programs including firearm safety, tactical defense, and competitive shooting preparation.</p>
+        <p>Champion Group VIP offers a range of training programs including firearm safety, tactical defense, and
+            competitive shooting preparation.</p>
     </section>
 
-    <section id="schedule">
+    <section id="schedule" class="reveal">
         <img src="assets/target.webp" alt="A paper target" class="section-img">
         <h2>Training Schedule</h2>
-        <p>We provide flexible scheduling to meet the needs of our clients. Whether you're in San Antonio, Austin, or nearby areas, our goal is to provide accessible and effective training options.</p>
+        <p>We provide flexible scheduling to meet the needs of our clients. Whether you're in San Antonio, Austin, or
+            nearby areas, our goal is to provide accessible and effective training options.</p>
     </section>
 
-    <section id="contact">
+    <section id="contact" class="reveal">
         <img src="assets/target.webp" alt="A paper target" class="section-img">
         <h2>Contact Champion Group VIP</h2>
         <p>Ready to take your training to the next level? Get in touch with Champion Group VIP today.</p>
@@ -64,17 +79,22 @@
             <input type="email" id="email" name="email" placeholder="Email" required><br><br>
             <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea><br><br>
             <button type="submit">Send Message</button>
+            <p class="microcopy">We typically respond within 3 business days.</p>
         </form>
     </section>
 
     <footer>
         <p>&copy; 2025 Champion Group VIP. All rights reserved.</p>
-        <p>Serving San Antonio - Austin areas | <a href="mailto:championgroupvip@earthlink.net">championgroupvip@earthlink.net</a></p>
+        <p>Serving San Antonio - Austin areas | <a
+                href="mailto:championgroupvip@earthlink.net">championgroupvip@earthlink.net</a></p>
     </footer>
+
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <!-- Contact Form functionality -->
+    <script src="app.js" defer></script>
+
+
 </body>
-<!-- EmailJS SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<!-- Your app code -->
-<script src="app.js" defer></script>
 
 </html>
